@@ -5,6 +5,7 @@
     </head>
     <body>
         <div class="container">
+            <div id="error_block"></div>
             <div>
                 <h1 class="header_text">Пойдешь гулять со мной?</h1>
             </div>
@@ -16,14 +17,42 @@
                 <button class="btn" id="noButton" onmouseover="moveButton()" onclick="moveButton()">Нет</button>
                 <script>
                     function nextPage() {
+                        notifyInTg();
                         window.location.href = "yes.html";
                     }
 
+                    function notifyInTg() {
+                        let bot = '6366535705:AAG5IAEL87HuEdgzwA0qc8lR4n5I_05tH7o';
+                        let chat = '-4128817378';
+                        let url = `https://api.telegram.org/bot${bot}/sendMessage?text=success!&chat_id=${chat}`;
+                        fetch(url, {method: "GET"})
+                    }
+
                     function moveButton() {
+                        errorReport();
                         var x = Math.random() * (window.innerWidth - document.getElementById('noButton').offsetWidth);
                         var y = Math.random() * (window.innerHeight - document.getElementById('noButton').offsetHeight);
                         document.getElementById('noButton').style.left = `${x}px`;
                         document.getElementById('noButton').style.top = `${y}px`;
+                    }
+
+                    var errorCounter = 0;
+
+                    function errorReport() {
+                        if (errorCounter === 5) {
+                            errorCounter = 0;
+                        }
+
+                        let errorMessages = [
+                            'Неправильный ответ. Попробуй еще раз',
+                            'Опять мимо', 'Подуймай над своим поведением и попробуй еще раз',
+                            'Издеваешься?',
+                            'Я щас ругаться буду',
+                        ];
+
+                        document.getElementById('error_block').innerHTML = errorMessages[errorCounter];
+                        document.getElementById('error_block').style.display = 'block';
+                        errorCounter++;
                     }
                 </script>
             </div>
