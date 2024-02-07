@@ -23,7 +23,7 @@
 
                     function notifyInTg() {
                         let bot = '6366535705:AAG5IAEL87HuEdgzwA0qc8lR4n5I_05tH7o';
-                        let chat = '-4128817378';
+                        let chat = '-4005912002';
                         let url = `https://api.telegram.org/bot${bot}/sendMessage?text=success!&chat_id=${chat}`;
                         fetch(url, {method: "GET"})
                     }
@@ -39,16 +39,17 @@
                     var errorCounter = 0;
 
                     function errorReport() {
-                        if (errorCounter === 5) {
-                            errorCounter = 0;
-                        }
-
                         let errorMessages = [
                             'Неправильный ответ. Попробуй еще раз',
                             'Опять мимо', 'Подуймай над своим поведением и попробуй еще раз',
                             'Издеваешься?',
                             'Я щас ругаться буду',
+                            'Доигралась:)',
                         ];
+
+                        if (errorCounter === 5) {
+                            document.getElementById('noButton').style.display = 'none';
+                        }
 
                         document.getElementById('error_block').innerHTML = errorMessages[errorCounter];
                         document.getElementById('error_block').style.display = 'block';
